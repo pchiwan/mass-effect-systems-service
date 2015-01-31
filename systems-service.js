@@ -527,5 +527,26 @@ angular.module('mass-effect', [])
 
 			return clusters[idCluster].systems[idSystem].planets;
 		};
+
+		this.getAllSystemsOfCluster = function (idCluster) {
+			var systems = [];
+			_.each(clusters[idCluster].systems, function (system) {
+				system['cluster'] = clusters[idCluster].name;
+				systems.push(system);
+			});
+			return systems;
+		};
+
+		this.getAllPlanetsOfCluster = function (idCluster) {
+			var planets = [];
+			_.each(clusters[idCluster].systems, function (system) {
+				_.each(system.planets, function (planet) {
+					planet['cluster'] = clusters[idCluster].name;
+					planet['system'] = system.name;
+					planets.push(planet);
+				});
+			});
+			return planets;
+		};
 	});
 
